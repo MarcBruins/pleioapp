@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Pleioapp.Droid;
+using Android.Gms.Gcm.Iid;
+using Android.Gms.Gcm;
 
 [assembly: Dependency(typeof(PushService))]
 namespace Pleioapp.Droid
@@ -10,44 +12,40 @@ namespace Pleioapp.Droid
 	public class PushService : IPushService
 	{
 		public void RequestToken() {
-			return;
+            return;
 		}
 
 		public void SetBadgeNumber(int number) {
-			return;
+            return;
 		}
 
 		public void SaveToken(string DeviceToken) {
-			return;
+            return;
 		}
 
 		public string GetToken() {
-			return "";
-		}
+            var instance = InstanceID.GetInstance(Xamarin.Forms.Forms.Context);
+            var token = instance.GetToken(Constants.GCMSenderId, GoogleCloudMessaging.InstanceIdScope);
+            return token;
+        }
 
-		public Task<bool> RegisterToken()
+		public async Task<bool> RegisterToken()
 		{
 			var app = (App)App.Current;
 			var service = app.webService;
-			//return service.RegisterPush ("", "", "gcm1");
+            var deviceId = Android.Provider.Settings.Secure.GetString(Xamarin.Forms.Forms.Context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
+            var token = GetToken();
 
-			var t = Task.Factory.StartNew(() => {
-				return true;
-			});
-			return t;
+            return await service.RegisterPush(deviceId, token, "gcm");
 		}
 
 		public Task<bool> DeregisterToken()
 		{
 			var app = (App)App.Current;
 			var service = app.webService;
-			//return service.DeRegisterPush ("", "", "gcm1");
+            var deviceId = Android.Provider.Settings.Secure.GetString(Xamarin.Forms.Forms.Context.ContentResolver, Android.Provider.Settings.Secure.AndroidId);
 
-			var t = Task.Factory.StartNew(() => {
-				return true;
-			});
-			return t;
-
+            return service.DeregisterPush(deviceId, "gcm");
 		}
 
 		public void ProcessPushNotification(Dictionary <string, string> data)

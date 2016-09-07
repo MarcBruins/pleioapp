@@ -51,7 +51,6 @@ namespace Pleioapp.iOS
 			var service = app.webService;
 			var deviceId = UIKit.UIDevice.CurrentDevice.IdentifierForVendor.AsString ();
 			return service.DeregisterPush (deviceId, "apns");
-
 		}
 			
 		public void ProcessPushNotification(Dictionary <string, string> data)

@@ -67,11 +67,15 @@ namespace Pleioapp
 
 		private async void RefreshPushToken()
 		{
-			if (pushService.GetToken() == null) {
-				pushService.RequestToken();
-			} else {
-				await pushService.RegisterToken();
-			}
+            await Task.Run(() => { 
+                if (pushService.GetToken() == null)
+                {
+                    pushService.RequestToken();
+                }
+                else {
+                 //   pushService.RegisterToken();
+                }
+            });
 		}
 
 		private async void ShowLogin()
