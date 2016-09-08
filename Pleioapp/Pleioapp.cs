@@ -67,13 +67,18 @@ namespace Pleioapp
 
 		private async void RefreshPushToken()
 		{
-            await Task.Run(() => { 
+            await Task.Run(() => {
                 if (pushService.GetToken() == null)
                 {
                     pushService.RequestToken();
                 }
                 else {
-                 //   pushService.RegisterToken();
+                    //android will register through an intentservice
+                    if (Device.OS == TargetPlatform.Android)
+                        return;
+
+                    //iOS and other platforms registration
+                    pushService.RegisterToken();
                 }
             });
 		}
