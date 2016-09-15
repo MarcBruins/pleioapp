@@ -47,19 +47,6 @@ namespace Pleioapp.Droid
                 return;
             }
         }
-
-        //void SendRegistrationToAppServer(string token)
-        //{
-        //    // Add custom implementation here as needed.
-        //    var deviceId = Android.Provider.Settings.Secure.GetString(ContentResolver,Android.Provider.Settings.Secure.ANDROID_ID);
-        //    return service.RegisterPush(deviceId, token, "apns");
-        //}
-
-        //void Subscribe(string token)
-        //{
-        //    var pubSub = GcmPubSub.GetInstance(this);
-        //    pubSub.Subscribe(token, GCM_TOPIC, null);
-        //}
     }
 
     [Service(Exported = false), IntentFilter(new[] { "com.google.android.gms.iid.InstanceID" })]
@@ -72,41 +59,5 @@ namespace Pleioapp.Droid
         }
     }
 
-    [Service(Exported = false), IntentFilter(new[] { "com.google.android.c2dm.intent.RECEIVE" })]
-    public class PleioGcmListenerService : GcmListenerService
-    {
-        const string TAG = "PleioGcmListenerService";
-        const string DEFAULT_TITLE = "GCM Message";
-
-        public override void OnMessageReceived(string from, Bundle data)
-        {
-            var pushService = DependencyService.Get<IPushService>();
-            //todo: pushService.ProcessPushNotification(null);
-            pushService.ProcessPushNotification(null);
-
-
-            var message = data.GetString("message");
-            Log.Debug(TAG, "From:    " + from);
-            Log.Debug(TAG, "Message: " + message);
-            SendNotification(message);
-        }
-
-        void SendNotification(string message)
-        {
-            var intent = new Intent(this, typeof(MainActivity));
-            intent.AddFlags(ActivityFlags.ClearTop);
-            var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
-
-            var notificationBuilder = new Notification.Builder(this)
-                                                      .SetSmallIcon(Resource.Drawable.ic_tv_dark)
-                                                      .SetContentTitle(DEFAULT_TITLE)
-                                                      .SetContentText(message)
-                                                      .SetAutoCancel(true)
-                                                      .SetContentIntent(pendingIntent);
-
-            var notificationManager = (NotificationManager)GetSystemService(Context.NotificationService);
-            notificationManager.Notify(0, notificationBuilder.Build());
-        }
-    }
 }
 

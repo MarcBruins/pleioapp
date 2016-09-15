@@ -15,7 +15,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>Pleioapp.Droid</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -133,6 +133,7 @@
     <Compile Include="Services\SSOService.cs" />
     <Compile Include="Stores\CredentialStore.cs" />
     <Compile Include="Services\RegistrationPushIntent.cs" />
+    <Compile Include="Services\GCMListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

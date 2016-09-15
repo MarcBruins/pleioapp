@@ -11,12 +11,11 @@
 	
     <application android:label="PleioApp" android:icon="@drawable/Icon">
     <receiver android:name="com.google.android.gms.gcm.GcmReceiver" 
-              android:exported="true" 
-              android:permission="com.google.android.c2dm.permission.SEND">
+              android:exported="true">
         <intent-filter>
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-            <category android:name="comp.pleio.pleioapp" />
+            <category android:name="comp.pleio.pleioapp.GCMListener" />
         </intent-filter>
     </receiver>
 </application>
