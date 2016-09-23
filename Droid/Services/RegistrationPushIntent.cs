@@ -1,18 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿using System;
 using Android.App;
 using Android.Content;
-using Android.Gms.Gcm;
 using Android.Gms.Gcm.Iid;
-using Android.OS;
-using Android.Runtime;
 using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Xamarin.Forms;
 
 namespace Pleioapp.Droid
@@ -41,7 +31,7 @@ namespace Pleioapp.Droid
             }
             catch (Exception e)
             {
-                Log.Debug(TAG, "Failed to get a registration token");
+                Log.Debug(TAG, $"Failed to get a registration token:{e.Message}");
                 return;
             }
         }
