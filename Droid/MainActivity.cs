@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Content.PM;Ω
+using Android.Content.PM;
 using Android.Widget;
 using Android.OS;
 using Xamarin;
