@@ -1,10 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
+using Android.Content.PM;Ω
 using Android.Widget;
 using Android.OS;
 using Xamarin;
@@ -12,7 +8,7 @@ using Android.Gms.Common;
 
 namespace Pleioapp.Droid
 {
-	[Activity (Label = "Pleioapp.Droid", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+	[Activity (Label = "Pleioapp", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsApplicationActivity
 	{
 		protected override void OnCreate (Bundle bundle)
