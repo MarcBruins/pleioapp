@@ -1,7 +1,9 @@
-﻿using Android.App;
+﻿using System.Collections.Generic;
+using Android.App;
 using Android.Content;
 using Android.Gms.Gcm;
 using Android.OS;
+using Xamarin.Forms;
 
 namespace Pleioapp.Droid
 {
@@ -18,8 +20,14 @@ namespace Pleioapp.Droid
 
             if (notificationBundle != null)
             {
-                var message = notificationBundle.Get("body");
-                SendNotification(message.ToString());
+                var message = notificationBundle.Get("body").ToString();
+
+                var pushService = DependencyService.Get<IPushService>();
+                var dict = new Dictionary<string, string>();
+                dict.Add("notification", message);
+                pushService.ProcessPushNotification(dict);
+
+                SendNotification(message);
             }
         }
 
