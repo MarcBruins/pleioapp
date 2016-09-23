@@ -21,31 +21,28 @@ namespace Pleioapp.Droid
     {
         const string TAG = "PleioGcmListenerService";
         const string DEFAULT_TITLE = "GCM Message";
+        const string TITLE = "PleioApp";
 
         public override void OnMessageReceived(string from, Bundle data)
         {
-            var pushService = DependencyService.Get<IPushService>();
-            //   //todo: pushService.ProcessPushNotification(null);
-            //   var message = data.GetString("message");
+            var notificationBundle = data.Get("notification") as Bundle;
 
-            ////   pushService.ProcessPushNotification(new Dictionary<string, string>());
-
-            //   Log.Debug(TAG, "From:    " + from);
-            //   Log.Debug(TAG, "Message: " + message);
-            //   SendNotification(message);
+            if (notificationBundle != null)
+            {
+                var message = notificationBundle.Get("body");
+                SendNotification(message.ToString());
+            }
         }
 
         void SendNotification(string message)
         {
             var intent = new Intent(this, typeof(MainActivity));
-            intent.AddFlags(ActivityFlags.ClearTop);
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
 
             var notificationBuilder = new Notification.Builder(this)
-                                                      .SetPriority(10)
-                                                      .SetContentTitle("TITLE")
-                                                      .SetContentText("TEKST")
-                                                      .SetAutoCancel(true)
+                                                      .SetContentTitle(TITLE)
+                                                      .SetContentText(message)
+                                                      .SetSmallIcon(Resource.Drawable.icon)
                                                       .SetContentIntent(pendingIntent);
 
             var notificationManager = (NotificationManager)GetSystemService(Context.NotificationService);

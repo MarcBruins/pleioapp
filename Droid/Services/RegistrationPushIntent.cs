@@ -36,8 +36,6 @@ namespace Pleioapp.Droid
                 lock (locker)
                 {
                     pushService = DependencyService.Get<IPushService>();
-
-                    //pushService.SaveToken(token);
                     pushService.RegisterToken();
                 }
             }

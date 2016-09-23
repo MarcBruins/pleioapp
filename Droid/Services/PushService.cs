@@ -25,11 +25,6 @@ namespace Pleioapp.Droid
 
 		public string GetToken() {
             var instance = InstanceID.GetInstance(Xamarin.Forms.Forms.Context);
-            //#if DEBUG
-            //instance.DeleteToken(Constants.GCMSenderId, GoogleCloudMessaging.InstanceIdScope);
-            //instance.DeleteInstanceID();
-            //instance = InstanceID.GetInstance(Xamarin.Forms.Forms.Context);
-            //#endif
             var token = instance.GetToken(Constants.GCMSenderId, GoogleCloudMessaging.InstanceIdScope);
             return token;
         }
@@ -56,7 +51,7 @@ namespace Pleioapp.Droid
 		public void ProcessPushNotification(Dictionary <string, string> data)
 		{
 			System.Diagnostics.Debug.WriteLine ("Received a push notification " + data.ToString());
-		//	MessagingCenter.Send<Xamarin.Forms.Application> (App.Current, "refresh_menu");
+			MessagingCenter.Send<Xamarin.Forms.Application> (App.Current, "refresh_menu");
 		}
 	}
 }
