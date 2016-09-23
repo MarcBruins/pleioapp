@@ -20,7 +20,6 @@ namespace Pleioapp.Droid
     public class GCMListener : GcmListenerService
     {
         const string TAG = "PleioGcmListenerService";
-        const string DEFAULT_TITLE = "GCM Message";
         const string TITLE = "PleioApp";
 
         public override void OnMessageReceived(string from, Bundle data)
